@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Counter</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f4f4f4;
+      text-align: center;
+      padding: 50px;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 30px;
+    }
+
+    .button-box {
+      width: 200px;
+      height: 200px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 36px;
+      color: white;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .correct {
+      background-color: #2ecc71;
+    }
+
+    .wrong {
+      background-color: #e74c3c;
+    }
+
+    .bottom-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .reset-button {
+      padding: 10px 20px;
+      font-size: 18px;
+      border-radius: 8px;
+      border: none;
+      background-color: #ddd;
+      cursor: pointer;
+    }
+
+    .percentage {
+      font-size: 28px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="button-box correct" onclick="increment('correct')">
+      CORRECT
+      <div id="correct-count">0</div>
+    </div>
+    <div class="button-box wrong" onclick="increment('wrong')">
+      WRONG
+      <div id="wrong-count">0</div>
+    </div>
+  </div>
+
+  <div class="bottom-bar">
+    <button class="reset-button" onclick="reset()">RESET</button>
+    <div class="percentage" id="percentage">0%</div>
+  </div>
+
+  <script>
+    let correct = 0;
+    let wrong = 0;
+
+    function updateDisplay() {
+      document.getElementById('correct-count').textContent = correct;
+      document.getElementById('wrong-count').textContent = wrong;
+      const total = correct + wrong;
+      const percentage = total ? Math.round((correct / total) * 100) : 0;
+      document.getElementById('percentage').textContent = `${percentage}%`;
+    }
+
+    function increment(type) {
+      if (type === 'correct') correct++;
+      else if (type === 'wrong') wrong++;
+      updateDisplay();
+    }
+
+    function reset() {
+      correct = 0;
+      wrong = 0;
+      updateDisplay();
+    }
+  </script>
+</body>
+</html>
